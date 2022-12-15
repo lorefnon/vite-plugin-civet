@@ -10,14 +10,7 @@ pnpm add vite-plugin-civet -D
 
 ## Usage
 
-```typescript
-import { defineConfig } from 'vite'
-import plugin from 'vite-plugin-civet'
-
-export default defineConfig({
-  plugins: [plugin()],
-})
-```
+Checkout [vite.config.js](./playground/vite.config.ts) for now
 
 ### Options
 
