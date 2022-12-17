@@ -10,7 +10,7 @@ export default defineConfig({
         presets: [
           '@babel/preset-react',
         ],
-      }
+      },
     }),
     civetPlugin({
       stripTypes: true,
