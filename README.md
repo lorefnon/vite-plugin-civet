@@ -81,4 +81,15 @@ export default defineConfig({
 
 It should be possible to integrate plugins for other frameworks too in similar fashion. Please open an issue describing your use case if you face an issue.
 
+### Sample projects
+
+Sample framework specific projects are available to help you get started quickly: 
+
+- **React (Frontend):** `npx degit lorefnon/vite-plugin-civet/playground-react my-app`
+- **Solid (Frontend):** `npx degit lorefnon/vite-plugin-civet/playground-solid my-app`
+
+# TODO
+
+- [ ] Sourcemap integration
+
 [LICENSE (MIT)](/LICENSE)

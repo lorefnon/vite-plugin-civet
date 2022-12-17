@@ -31,6 +31,7 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "play-react": "pnpm run --filter ./playground-react dev",
+    "play-solid": "pnpm run --filter ./playground-solid dev",
     "prepublishOnly": "pnpm run build",
     "test": "vitest",
     "release": "bumpp --commit --push --tag && pnpm publish",
