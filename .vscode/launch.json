@@ -1,0 +1,26 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch React Playground",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/playground-react/node_modules/vite/bin/vite.js",
+            "args": [
+                "dev"
+            ],
+            "outFiles": [
+                "${workspaceFolder}/dist/**/*.js",
+                "${workspaceFolder}/playground-react/dist/**/*.js"
+            ],
+            "cwd": "${workspaceFolder}/playground-react",
+            "pauseForSourceMap": true
+        }
+    ]
+}
