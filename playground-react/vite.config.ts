@@ -1,21 +1,15 @@
 import { defineConfig } from 'vite'
-import reactPlugin from '@vitejs/plugin-react'
+import reactPlugin from '@vitejs/plugin-react-swc'
 import civetPlugin from 'vite-plugin-civet'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    reactPlugin({
-      babel: {
-        presets: [
-          '@babel/preset-react',
-        ],
-      },
-    }),
+    reactPlugin(),
     civetPlugin({
       stripTypes: true,
       outputExtension: 'jsx',
-      outputTransformerPlugin: 'vite:react-babel',
+      outputTransformerPlugin: 'vite:react-swc',
     }),
   ],
 })

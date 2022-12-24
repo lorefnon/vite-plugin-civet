@@ -15,7 +15,7 @@ npm install -D vite-plugin-civet
 pnpm install -D vite-plugin-civet
 
 # or
-yarn add vite-plugin-civet -D
+yarn add -D vite-plugin-civet
 ```
 
 ## Usage
@@ -40,33 +40,27 @@ It is recomended that type-checking is performed separately (either through edit
 
 ### Integrations
 
-Please note that civet does not offer any polyfills. Nor does it have inbuilt support for non-standard javascript features. This includes JSX. 
+Please note that civet (by design) does not include polyfills for older browsers. Nor does it have inbuilt support for transpiling non-standard javascript features like JSX to standard javascript. 
 
 While Civet offers syntax support for JSX it does not make any assumptions around what that JSX will compile to. You will need additional framework-specific plugins to process the output of civet to standard javascript.
 
-Following example illustrates how this plugin can be integrated with [vite-plugin-react](https://github.com/vitejs/vite-plugin-react). 
+Following example illustrates how this plugin can be integrated with [vite-plugin-react](https://github.com/vitejs/vite-plugin-react-swc). 
 
 ```ts
 import { defineConfig } from 'vite'
-import reactPlugin from '@vitejs/plugin-react'
+import reactPlugin from '@vitejs/plugin-react-swc'
 import civetPlugin from 'vite-plugin-civet'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    reactPlugin({
-      babel: {
-        presets: [
-          '@babel/preset-react',
-        ],
-      },
-    }),
+    reactPlugin(),
     civetPlugin({
       stripTypes: true,
 
       // Civet plugin needs to be made aware of the plugin
       // that will support typescript compilation
-      outputTransformerPlugin: 'vite:react-babel',
+      outputTransformerPlugin: 'vite:react-swc',
 
       // Currently vite-plugin-react will not perform
       // any transformations unless file extension is js/jsx etc.
@@ -77,6 +71,24 @@ export default defineConfig({
     }),
   ],
 })
+```
+
+Note that the id here is the vite plugin id, different from the name of the package that defines the plugin. This id can be found in the object that the plugin's default export returns.
+
+```
+> (await import('@vitejs/plugin-react-swc')).default({})
+[
+  {
+    name: 'vite:react-swc',  // <------
+    apply: 'serve',
+    ...
+  },
+  {
+    name: 'vite:react-swc',
+    apply: 'build',
+    ...
+  }
+]
 ```
 
 It should be possible to integrate plugins for other frameworks too in similar fashion. Please open an issue describing your use case if you face an issue.
