@@ -46,12 +46,10 @@
     "@danielx/civet": "^0.5.1",
     "@rollup/pluginutils": "^5.0.2",
     "cheerio": "1.0.0-rc.12",
-    "lodash": "^4.17.21",
     "vite": "^4.0.1"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.34.0",
-    "@types/lodash": "^4.14.191",
     "@types/node": "^18.11.16",
     "bumpp": "^8.2.1",
     "eslint": "^8.30.0",

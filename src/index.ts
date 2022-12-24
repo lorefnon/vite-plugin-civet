@@ -1,5 +1,4 @@
-import isFunction from 'lodash/isFunction'
-import type { Plugin } from 'vite'
+import type { Plugin, TransformResult } from 'vite'
 import { load as loadHTML } from 'cheerio'
 import type { FilterPattern } from '@rollup/pluginutils'
 import { createFilter } from '@rollup/pluginutils'
@@ -11,6 +10,7 @@ interface PluginOptions {
   stripTypes?: boolean
   include?: FilterPattern
   exclude?: FilterPattern
+  transformOutput?: (code: string, id: string, options?: { ssr?: boolean }) => TransformResult | Promise<TransformResult>
 }
 
 export default function plugin(pluginOpts: PluginOptions = {}): Plugin {
@@ -67,30 +67,37 @@ export default function plugin(pluginOpts: PluginOptions = {}): Plugin {
     async transform(code, id, options) {
       if (!filter(id))
         return null
-      const output = civet.compile(code, {
-        filename: id,
-        js: !stripTypes,
-        sourceMap: true,
-      })
+      const ast = civet.parse(code)
+      let transformed: TransformResult = {
+        code: civet.generate(ast, {
+          inlineMap: true,
+          sourceMap: true,
+          filename: id,
+          js: !stripTypes,
+        } as any),
+        map: null,
+      }
+      if (pluginOpts.transformOutput)
+        transformed = await pluginOpts.transformOutput(transformed.code, id, options)
+
       if (parentPlugin?.transform) {
         const parentTransformHook = parentPlugin.transform
-        const transformFn = isFunction(parentTransformHook)
+        const transformFn = (typeof parentTransformHook === 'function')
           ? parentTransformHook
           : parentTransformHook.handler
-        const transformed = await transformFn.apply(this, [
-          output.code,
+        const transformResult = await transformFn.apply(this, [
+          transformed.code,
           `${id}.${outputExtension}`,
           options,
         ])
-        if (transformed == null) {
+        if (transformResult == null) {
           console.warn(
             `Parent plugin ${parentPlugin.name} refused to transform output of vite-plugin-civet`,
           )
-          return output
         }
-        return transformed
+        else { return transformResult }
       }
-      return { code: output.code /* , map: output.sourceMap */ }
+      return transformed
     },
   }
 }

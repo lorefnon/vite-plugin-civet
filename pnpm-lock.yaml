@@ -7,12 +7,10 @@ importers:
       '@antfu/eslint-config': ^0.34.0
       '@danielx/civet': ^0.5.1
       '@rollup/pluginutils': ^5.0.2
-      '@types/lodash': ^4.14.191
       '@types/node': ^18.11.16
       bumpp: ^8.2.1
       cheerio: 1.0.0-rc.12
       eslint: ^8.30.0
-      lodash: ^4.17.21
       pnpm: ^7.18.2
       tsup: ^6.5.0
       typescript: ^4.9.4
@@ -22,11 +20,9 @@ importers:
       '@danielx/civet': 0.5.1
       '@rollup/pluginutils': 5.0.2
       cheerio: 1.0.0-rc.12
-      lodash: 4.17.21
       vite: 4.0.1_@types+node@18.11.16
     devDependencies:
       '@antfu/eslint-config': 0.34.0_lzzuuodtsqwxnvqeq4g4likcqa
-      '@types/lodash': 4.14.191
       '@types/node': 18.11.16
       bumpp: 8.2.1
       eslint: 8.30.0
@@ -1891,10 +1887,6 @@ packages:
 
   /@types/json5/0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
-    dev: true
-
-  /@types/lodash/4.14.191:
-    resolution: {integrity: sha512-BdZ5BCCvho3EIXw6wUCXHe7rS53AIDPLE+JzwgT+OsJk53oBfbSmZZ7CX4VaRoN78N+TJpFi9QPlfIVNmJYWxQ==}
     dev: true
 
   /@types/mdast/3.0.10:
@@ -3951,6 +3943,7 @@ packages:
 
   /lodash/4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+    dev: true
 
   /loose-envify/1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
