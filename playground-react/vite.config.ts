@@ -7,8 +7,11 @@ export default defineConfig({
   plugins: [
     reactPlugin(),
     civetPlugin({
+      // For simple uses of TypeScript, Civet can directly transform into JS:
       stripTypes: true,
       outputExtension: 'jsx',
+      // For complex uses of TypeScript (e.g. enum), use existing TS transform:
+      //outputExtension: 'tsx',
       outputTransformerPlugin: 'vite:react-swc',
     }),
   ],
