@@ -43,7 +43,7 @@
     "url": "https://github.com/lorefnon/vite-plugin-civet/issues"
   },
   "dependencies": {
-    "@danielx/civet": "^0.5.1",
+    "@danielx/civet": "^0.5.34",
     "@rollup/pluginutils": "^5.0.2",
     "cheerio": "1.0.0-rc.12",
     "vite": "^4.0.1"

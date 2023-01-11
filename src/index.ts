@@ -67,14 +67,12 @@ export default function plugin(pluginOpts: PluginOptions = {}): Plugin {
     async transform(code, id, options) {
       if (!filter(id))
         return null
-      const ast = civet.parse(code)
       let transformed: TransformResult = {
-        code: civet.generate(ast, {
+        code: civet.compile(code, {
           inlineMap: true,
-          sourceMap: true,
           filename: id,
           js: !stripTypes,
-        } as any),
+        } as any) as string,
         map: null,
       }
       if (pluginOpts.transformOutput)

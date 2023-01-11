@@ -5,7 +5,7 @@ importers:
   .:
     specifiers:
       '@antfu/eslint-config': ^0.34.0
-      '@danielx/civet': ^0.5.1
+      '@danielx/civet': ^0.5.34
       '@rollup/pluginutils': ^5.0.2
       '@types/node': ^18.11.16
       bumpp: ^8.2.1
@@ -17,7 +17,7 @@ importers:
       vite: ^4.0.1
       vitest: ^0.25.8
     dependencies:
-      '@danielx/civet': 0.5.1
+      '@danielx/civet': 0.5.34
       '@rollup/pluginutils': 5.0.2
       cheerio: 1.0.0-rc.12
       vite: 4.0.1_@types+node@18.11.16
@@ -532,8 +532,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /@danielx/civet/0.5.1:
-    resolution: {integrity: sha512-Q354doa7417cpHMjoL4zgXTE5rFfc8yV80xiX2qJ682O3lKCHa65GQwmwVUcAyK8EMgTsYsDbF3bmXs8RQp9mA==}
+  /@danielx/civet/0.5.34:
+    resolution: {integrity: sha512-5oB4Iz43k8UNxojMwbVl3dL2gc2NVaa1N9bHsuhO1y7C1p8RM31LxbuUJYhC0yxxY4wABMFuokeCCsb17dWHLg==}
     engines: {node: ^18.6.0 || ^16.17.0}
     hasBin: true
     dev: false
