@@ -1,4 +1,4 @@
-# vite-plugin-civet 
+# vite-plugin-civet
 
 Experimental vite plugin for [civet](https://github.com/DanielXMoore/Civet)
 
@@ -11,7 +11,7 @@ Install it as a dev dependency through your preferred package manager (we recome
 ```bash
 npm install -D vite-plugin-civet
 
-# or 
+# or
 pnpm install -D vite-plugin-civet
 
 # or
@@ -40,11 +40,11 @@ It is recomended that type-checking is performed separately (either through edit
 
 ### Integrations
 
-Please note that civet (by design) does not include polyfills for older browsers. Nor does it have inbuilt support for transpiling non-standard javascript features like JSX to standard javascript. 
+Please note that civet (by design) does not include polyfills for older browsers. Nor does it have inbuilt support for transpiling non-standard javascript features like JSX to standard javascript.
 
 While Civet offers syntax support for JSX it does not make any assumptions around what that JSX will compile to. You will need additional framework-specific plugins to process the output of civet to standard javascript.
 
-Following example illustrates how this plugin can be integrated with [vite-plugin-react](https://github.com/vitejs/vite-plugin-react-swc). 
+Following example illustrates how this plugin can be integrated with [vite-plugin-react](https://github.com/vitejs/vite-plugin-react-swc).
 
 ```ts
 import { defineConfig } from 'vite'
@@ -95,9 +95,9 @@ It should be possible to integrate plugins for other frameworks too in similar f
 
 ### Sample projects
 
-Sample framework specific projects are available to help you get started quickly: 
+Sample framework specific projects are available to help you get started quickly:
 
-- **React (Frontend):** `npx degit lorefnon/vite-plugin-civet/playground-react my-app`
+- **React (Frontend):** `npx degit lorefnon/vite-plugin-civet/playground-react-babel my-app`
 - **Solid (Frontend):** `npx degit lorefnon/vite-plugin-civet/playground-solid my-app`
 
 # TODO

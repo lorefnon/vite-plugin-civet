@@ -1,3 +1,4 @@
 packages:
-  - playground-react
+  - playground-react-swc
+  - playground-react-babel
   - playground-solid
