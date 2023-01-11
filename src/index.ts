@@ -71,7 +71,7 @@ export default function plugin(pluginOpts: PluginOptions = {}): Plugin {
         code: civet.compile(code, {
           inlineMap: true,
           filename: id,
-          js: !stripTypes,
+          js: stripTypes,
         } as any) as string,
         map: null,
       }
