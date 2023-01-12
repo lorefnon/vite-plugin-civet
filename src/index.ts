@@ -96,9 +96,11 @@ export default function plugin(pluginOpts: PluginOptions = {}): Plugin {
             options,
           ])
           if (transformResult == null) {
+            /*
             console.warn(
               `Parent plugin ${parentPlugin.name} refused to transform output of vite-plugin-civet`,
             )
+            */
           }
           else if (typeof transformResult === 'string') {
             transformed.code = transformResult
