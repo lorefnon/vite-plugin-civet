@@ -5,7 +5,7 @@ import { createFilter } from '@rollup/pluginutils'
 import civet from '@danielx/civet'
 
 interface PluginOptions {
-  outputTransformerPlugin?: string
+  outputTransformerPlugin?: string | string[]
   outputExtension?: string
   stripTypes?: boolean
   include?: FilterPattern
@@ -18,7 +18,7 @@ export default function plugin(pluginOpts: PluginOptions = {}): Plugin {
     pluginOpts.include ?? '**/*.civet',
     pluginOpts.exclude ?? 'node_modules/**',
   )
-  let parentPlugin: Plugin | undefined
+  const parentPlugins: Plugin[] = []
   const stripTypes
     = pluginOpts.stripTypes ?? !pluginOpts.outputTransformerPlugin
   const outputExtension = pluginOpts.outputExtension ?? (stripTypes ? '.js' : '.ts')
@@ -27,14 +27,20 @@ export default function plugin(pluginOpts: PluginOptions = {}): Plugin {
     name: 'vite:civet',
 
     configResolved(resolvedConfig) {
-      const parentPluginId = pluginOpts.outputTransformerPlugin
-      if (parentPluginId) {
-        parentPlugin = resolvedConfig.plugins?.find(it => it.name === parentPluginId)
+      if (!pluginOpts.outputTransformerPlugin)
+        return
+      const parentPluginIds: string[]
+      = Array.isArray(pluginOpts.outputTransformerPlugin)
+        ? pluginOpts.outputTransformerPlugin
+        : [pluginOpts.outputTransformerPlugin]
+      for (const parentPluginId of parentPluginIds) {
+        const parentPlugin = resolvedConfig.plugins?.find(it => it.name === parentPluginId)
         if (!parentPlugin) {
           throw new Error(
             `Unable to find plugin for specified outputTransformerPluginId: ${parentPluginId}: Is it added in vite config before vite-plugin-civet ?`,
           )
         }
+        parentPlugins.push(parentPlugin)
       }
     },
 
@@ -78,23 +84,31 @@ export default function plugin(pluginOpts: PluginOptions = {}): Plugin {
       if (pluginOpts.transformOutput)
         transformed = await pluginOpts.transformOutput(transformed.code, id, options)
 
-      if (parentPlugin?.transform) {
-        const parentTransformHook = parentPlugin.transform
-        const transformFn = (typeof parentTransformHook === 'function')
-          ? parentTransformHook
-          : parentTransformHook.handler
-        const transformResult = await transformFn.apply(this, [
-          transformed.code,
-          `${id}.${outputExtension}`,
-          options,
-        ])
-        if (transformResult == null) {
-          console.warn(
-            `Parent plugin ${parentPlugin.name} refused to transform output of vite-plugin-civet`,
-          )
+      for (const parentPlugin of parentPlugins) {
+        if (parentPlugin?.transform) {
+          const parentTransformHook = parentPlugin.transform
+          const transformFn = (typeof parentTransformHook === 'function')
+            ? parentTransformHook
+            : parentTransformHook.handler
+          const transformResult = await transformFn.apply(this, [
+            transformed.code,
+            `${id}.${outputExtension}`,
+            options,
+          ])
+          if (transformResult == null) {
+            console.warn(
+              `Parent plugin ${parentPlugin.name} refused to transform output of vite-plugin-civet`,
+            )
+          }
+          else if (typeof transformResult === 'string') {
+            transformed.code = transformResult
+          }
+          else {
+            Object.assign(transformed, transformResult)
+          }
         }
-        else { return transformResult }
       }
+
       return transformed
     },
   }
