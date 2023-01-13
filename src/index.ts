@@ -25,6 +25,19 @@ export default function plugin(pluginOpts: PluginOptions = {}): Plugin {
 
   return {
     name: 'vite:civet',
+    enforce: 'pre', // run esbuild after transform
+
+    config(config, { command }) {
+      // Ensure esbuild runs on .civet files
+      if (command === 'build') {
+        return {
+          esbuild: {
+            include: [/\.civet$/],
+            loader: 'tsx',
+          },
+        }
+      }
+    },
 
     configResolved(resolvedConfig) {
       if (!pluginOpts.outputTransformerPlugin)
