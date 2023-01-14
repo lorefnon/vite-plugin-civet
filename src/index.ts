@@ -10,7 +10,11 @@ interface PluginOptions {
   stripTypes?: boolean
   include?: FilterPattern
   exclude?: FilterPattern
-  transformOutput?: (code: string, id: string, options?: { ssr?: boolean }) => TransformResult | Promise<TransformResult>
+  transformOutput?: (
+    code: string,
+    id: string,
+    options?: { ssr?: boolean }
+  ) => TransformResult | Promise<TransformResult>
 }
 
 export default function plugin(pluginOpts: PluginOptions = {}): Plugin {
@@ -43,9 +47,9 @@ export default function plugin(pluginOpts: PluginOptions = {}): Plugin {
       if (!pluginOpts.outputTransformerPlugin)
         return
       const parentPluginIds: string[]
-      = Array.isArray(pluginOpts.outputTransformerPlugin)
-        ? pluginOpts.outputTransformerPlugin
-        : [pluginOpts.outputTransformerPlugin]
+        = Array.isArray(pluginOpts.outputTransformerPlugin)
+          ? pluginOpts.outputTransformerPlugin
+          : [pluginOpts.outputTransformerPlugin]
       for (const parentPluginId of parentPluginIds) {
         const parentPlugin = resolvedConfig.plugins?.find(it => it.name === parentPluginId)
         if (!parentPlugin) {
@@ -108,19 +112,10 @@ export default function plugin(pluginOpts: PluginOptions = {}): Plugin {
             `${id}.${outputExtension}`,
             options,
           ])
-          if (transformResult == null) {
-            /*
-            console.warn(
-              `Parent plugin ${parentPlugin.name} refused to transform output of vite-plugin-civet`,
-            )
-            */
-          }
-          else if (typeof transformResult === 'string') {
+          if (typeof transformResult === 'string')
             transformed.code = transformResult
-          }
-          else {
+          else if (transformResult != null)
             Object.assign(transformed, transformResult)
-          }
         }
       }
 
