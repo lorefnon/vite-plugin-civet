@@ -4,11 +4,15 @@ import babelPlugin from 'vite-plugin-babel'
 
 export default defineConfig({
   plugins: [
-    babelPlugin(),
+    babelPlugin({
+      apply: 'serve',
+    }),
     civetPlugin({
       stripTypes: true,
       outputExtension: 'js',
-      outputTransformerPlugin: 'babel-plugin',
+      outputTransformerPlugin: {
+        serve: 'babel-plugin',
+      },
     }),
   ],
   server: {

@@ -5,7 +5,10 @@ import { createFilter } from '@rollup/pluginutils'
 import civet from '@danielx/civet'
 
 interface PluginOptions {
-  outputTransformerPlugin?: string | string[]
+  outputTransformerPlugin?: string | string[] | {
+    build?: string | string[]
+    serve?: string | string[]
+  }
   outputExtension?: string
   stripTypes?: boolean
   include?: FilterPattern
@@ -27,6 +30,19 @@ export default function plugin(pluginOpts: PluginOptions = {}): Plugin {
     = pluginOpts.stripTypes ?? !pluginOpts.outputTransformerPlugin
   const outputExtension = pluginOpts.outputExtension ?? (stripTypes ? '.js' : '.ts')
 
+  const resolveParentPluginIds = (command: 'build' | 'serve'): string[] => {
+    if (!pluginOpts.outputTransformerPlugin)
+      return []
+    if (Array.isArray(pluginOpts.outputTransformerPlugin))
+      return pluginOpts.outputTransformerPlugin
+    if (typeof pluginOpts.outputTransformerPlugin === 'string')
+      return [pluginOpts.outputTransformerPlugin]
+    const pluginIds = pluginOpts.outputTransformerPlugin[command]
+    if (typeof pluginIds === 'string')
+      return [pluginIds]
+    return pluginIds ?? []
+  }
+
   return {
     name: 'vite:civet',
     enforce: 'pre', // run esbuild after transform
@@ -46,11 +62,7 @@ export default function plugin(pluginOpts: PluginOptions = {}): Plugin {
     configResolved(resolvedConfig) {
       if (!pluginOpts.outputTransformerPlugin)
         return
-      const parentPluginIds: string[]
-        = Array.isArray(pluginOpts.outputTransformerPlugin)
-          ? pluginOpts.outputTransformerPlugin
-          : [pluginOpts.outputTransformerPlugin]
-      for (const parentPluginId of parentPluginIds) {
+      for (const parentPluginId of resolveParentPluginIds(resolvedConfig.command)) {
         const parentPlugin = resolvedConfig.plugins?.find(it => it.name === parentPluginId)
         if (!parentPlugin) {
           throw new Error(
