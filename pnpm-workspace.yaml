@@ -2,3 +2,4 @@ packages:
   - playground-react-swc
   - playground-react-babel
   - playground-solid
+  - playground-lit
