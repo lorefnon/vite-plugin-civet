@@ -1,12 +1,12 @@
 # vite-plugin-civet
 
-Experimental vite plugin for [civet](https://github.com/DanielXMoore/Civet)
+Experimental vite plugin for [Civet](https://civet.dev).
 
-Civet is a new programming language that transpiles to typescript/javascript. It borrows many features from Coffeescript, imba etc. and offers type-safety through typescript integration. With this plugin you can use civet in a vite project. You can use civet for your entire application or a subset of modules.
+Civet is a new programming language that transpiles to TypeScript/JavaScript. It borrows many features from CoffeeScript, imba etc. and offers type-safety through TypeScript integration. With this plugin you can use civet in a vite project. You can use civet for your entire application or a subset of modules.
 
 ## Installation
 
-Install it as a dev dependency through your preferred package manager (we recomend pnpm)
+Install it as a dev dependency through your preferred package manager (we recommend pnpm)
 
 ```bash
 npm install -D vite-plugin-civet
@@ -20,31 +20,34 @@ yarn add -D vite-plugin-civet
 
 ## Usage
 
+Here is a simple example of a `vite.config.ts`,
+with no processing beyond Civet:
+
 ```ts
 import { defineConfig } from 'vite'
-import reactPlugin from '@vitejs/plugin-react'
 import civetPlugin from 'vite-plugin-civet'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     civetPlugin({
-      // Remove typescript type annotations from output
+      // Remove TypeScript type annotations from output
       stripTypes: true,
     }),
   ],
 })
 ```
 
-It is recomended that type-checking is performed separately (either through editor integration or civet cli rather than as part of build)
+It is recommended that type checking is performed separately
+(either through editor integration or Civet CLI rather than as part of build).
 
 ### Integrations
 
-Please note that civet (by design) does not include polyfills for older browsers. Nor does it have inbuilt support for transpiling non-standard javascript features like JSX to standard javascript.
+Please note that civet (by design) does not include polyfills for older browsers. Nor does it have built-in support for transpiling non-standard JavaScript features like JSX to standard JavaScript.
 
-While Civet offers syntax support for JSX it does not make any assumptions around what that JSX will compile to. You will need additional framework-specific plugins to process the output of civet to standard javascript.
+While Civet offers syntax support for JSX, it does not make any assumptions around what that JSX will compile to. You will need additional framework-specific plugins to process the output of civet to standard JavaScript.
 
-Following example illustrates how this plugin can be integrated with [vite-plugin-react](https://github.com/vitejs/vite-plugin-react-swc).
+The following example `vite.config.ts` illustrates how this plugin can integrate with [vite-plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc).
 
 ```ts
 import { defineConfig } from 'vite'
@@ -59,7 +62,7 @@ export default defineConfig({
       stripTypes: true,
 
       // Civet plugin needs to be made aware of the plugin
-      // that will support typescript compilation
+      // that will support TypeScript compilation
       outputTransformerPlugin: 'vite:react-swc',
 
       // Currently vite-plugin-react will not perform
@@ -73,7 +76,7 @@ export default defineConfig({
 })
 ```
 
-Note that the id here is the vite plugin id, different from the name of the package that defines the plugin. This id can be found in the object that the plugin's default export returns.
+Note that the `id` here is the Vite plugin id, different from the name of the package that defines the plugin. This id can be found in the object that the plugin's default export returns.
 
 ```
 > (await import('@vitejs/plugin-react-swc')).default({})
