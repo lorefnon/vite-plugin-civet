@@ -103,6 +103,32 @@ Sample framework specific projects are available to help you get started quickly
 - **React (Frontend):** `npx degit lorefnon/vite-plugin-civet/playground-react-babel my-app`
 - **Solid (Frontend):** `npx degit lorefnon/vite-plugin-civet/playground-solid my-app`
 
+### Astro
+
+You can use this plugin with [Astro](https://astro.build/) and its
+[Integrations](https://docs.astro.build/en/guides/integrations-guide/)
+for JSX support by referring to the `astro:jsx` plugin.
+Here is an example `astro.config.mjs`
+using the [SolidJS](https://www.solidjs.com/) integration:
+
+```ts
+import { defineConfig } from 'astro/config'
+import civetPlugin from 'vite-plugin-civet'
+import solidJs from "@astrojs/solid-js"
+
+// https://astro.build/config
+export default defineConfig({
+  vite: {
+    plugins: [civetPlugin({
+      stripTypes: false,
+      outputExtension: 'tsx',
+      outputTransformerPlugin: 'astro:jsx',
+    })]
+  },
+  integrations: [solidJs()]
+});
+```
+
 # TODO
 
 - [ ] Sourcemap integration
