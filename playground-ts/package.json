@@ -1,0 +1,17 @@
+{
+  "name": "playground-ts",
+  "version": "0.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "build:watch": "vite build -w",
+    "serve": "vite preview"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^4.0.1",
+    "vite-plugin-civet": "workspace:*"
+  }
+}

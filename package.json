@@ -43,19 +43,19 @@
     "url": "https://github.com/lorefnon/vite-plugin-civet/issues"
   },
   "dependencies": {
-    "@danielx/civet": "^0.5.34",
-    "@rollup/pluginutils": "^5.0.2",
-    "cheerio": "1.0.0-rc.12",
-    "vite": "^4.0.1"
+    "cheerio": "1.0.0-rc.12"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.34.0",
-    "@types/node": "^18.11.16",
+    "@types/node": "^20.3.2",
     "bumpp": "^8.2.1",
-    "eslint": "^8.30.0",
-    "pnpm": "^8.6.0",
-    "tsup": "^6.5.0",
-    "typescript": "^4.9.4",
-    "vitest": "^0.25.8"
+    "eslint": "^8.30.0"
+  },
+  "peerDependencies": {
+    "@danielx/civet": ">= 0.5.34",
+    "@rollup/pluginutils": ">= 5.0.2",
+    "tsup": "*",
+    "typescript": ">= 5.0.2",
+    "vite": ">= 4.0.1"
   }
 }
