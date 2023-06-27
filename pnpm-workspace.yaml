@@ -3,3 +3,4 @@ packages:
   - playground-react-babel
   - playground-solid
   - playground-lit
+  - playground-ts
