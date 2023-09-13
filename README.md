@@ -1,3 +1,7 @@
+:warning: **UNMAINTAINED** This plugin is not actively maintained. Please migrate to the offically supported [unplugin-civet](https://github.com/DanielXMoore/Civet/tree/main/integration/unplugin)
+
+---
+
 # vite-plugin-civet
 
 Experimental vite plugin for [Civet](https://civet.dev).
